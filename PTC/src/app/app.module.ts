@@ -11,6 +11,11 @@ import { CategoryService } from './category/category.service';
 import { CategoryListComponent } from './category/category-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SecurityService } from './security/security.service';
+import { LoginComponent } from './security/login.component';
+import { AuthGuard } from './security/auth.guard';
+import { HttpInterceptorModule } from './security/http-interceptors';
+import { HasClaimDirective } from './security/has-claim.directive';
 
 @NgModule({
   declarations: [
@@ -18,15 +23,22 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ProductListComponent,
     ProductDetailComponent,
     CategoryListComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent,
+    HasClaimDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpInterceptorModule
   ],
-  providers: [ProductService, CategoryService],
+  providers: [
+    ProductService,
+    CategoryService,
+    SecurityService,
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

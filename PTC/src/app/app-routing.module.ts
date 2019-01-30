@@ -5,30 +5,42 @@ import { ProductListComponent } from "./product/product-list.component";
 import { CategoryListComponent } from './category/category-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductDetailComponent } from './product/product-detail.component';
+import { LoginComponent } from './security/login.component';
+import { AuthGuard } from './security/auth.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard', 
-    component: DashboardComponent
+    component: DashboardComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'login', component: LoginComponent
   },
   { 
     path: 'products', 
-    component: ProductListComponent
+    component: ProductListComponent,
+    canActivate: [AuthGuard],
+    data: { claimType: 'canAccessProducts'}
   },
   { 
     path: 'productDetail/:id', 
-    component: ProductDetailComponent
+    component: ProductDetailComponent,
+    canActivate: [AuthGuard],
+    data: { claimType: 'canAccessProducts'}
   },
   {
     path: 'categories',
-    component: CategoryListComponent
+    component: CategoryListComponent,
+    canActivate: [AuthGuard],
+    data: { claimType: 'canAccessCategiries'}
   },
   {
     path: '', redirectTo: 'dashboard', pathMatch: 'full'
   },
   {
     path: '**', component: DashboardComponent
-  }
+  }  
 ];
 
 @NgModule({
